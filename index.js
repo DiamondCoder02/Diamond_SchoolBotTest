@@ -1,9 +1,7 @@
 //const parser = require('rss-parser')
 /*** Discord, fs load ***/
-const Discord = require('discord.js')//, fs = require('fs')
-const client = new Discord.Client();
+const Discord = require('discord.js'), client = new Discord.Client(), cooldowns = new Discord.Collection()//, fs = require('fs')
 client.commands = new Discord.Collection();
-const cooldowns = new Discord.Collection();
 /*** config and language load ***/
 let config = require('./config.json');
 //const lang = require('./languages/' + config.language + '.json');
