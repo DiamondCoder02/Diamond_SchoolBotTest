@@ -4,8 +4,8 @@ const Discord = require('discord.js'), client = new Discord.Client(), cooldowns 
 client.commands = new Discord.Collection();
 /*** config and language load ***/
 let config = require('./config.json');
-//const lang = require('./languages/' + config.language + '.json');
-const system = {Discord, client, config};//, lang, fs};
+const lang = require('./languages/' + config.language + '.json');
+const system = {Discord, client, config, lang};//, fs};
 /*** Console logs ***/
 console.log(client);
 //client.on("error", (e) => console.error(e))
