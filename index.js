@@ -12,3 +12,5 @@ console.log(client);
 //client.on("warn", (e) => console.warn(e))
 //client.on("debug", (e) => console.info(e))
 client.login(config.token);
+
+//Command handler
