@@ -1,0 +1,175 @@
+{
+    "t": "",
+    "f": "",
+    "and": "",
+    "d": "",
+    "h": "",
+    "min": "",
+    "sec": "",
+
+    "index":{
+        "can_not_execute_DM": "",
+        "no_argument": "",
+        "proper_argument": "",
+        "cooldown1": "",
+        "cooldown2": "",
+        "error": "",
+        "error_terminal": "",
+        "error_or": "",
+        "error_bot_owner": "",
+        "perm_req": ""
+    },
+
+
+    "Commands": "all the commands here:",
+
+    "ban":{
+        "description": "",
+        "have_tag": "",
+        "cant_kick": "",
+        "no_user_found": "",
+        "no_tag": ""
+    },
+    "help":{
+        "description": "",
+        "setTitle": "",
+        "addFields1": "",
+        "addFields2_name": "",
+        "addFields2_value1": "",
+        "addFields2_value2": "",
+        "addFields3": "",
+        "sent_DM": "",
+        "console": "",
+        "cannot_DM": "",
+        "not_valid": "",
+        "info": "",
+        "a": "",
+        "b": "",
+        "bb": "",
+        "c": "",
+        "cc": "",
+        "d": "",
+        "e": "",
+        "ee": "",
+        "f": "",
+        "ff": "",
+        "g": "",
+        "gg": ""
+    },
+    "homework": {
+        "description": "",
+        "setTitle": "",
+        "t": "",
+        "o": "",
+        "last_upd": ""
+    },
+    "kick":{
+        "description": "",
+        "no_tag": "",
+        "have_tag": "",
+        "cant_kick": "",
+        "no_user_found": ""
+    },
+    "music":{
+        "description": ""
+    },
+    "ping":{
+        "description": "",
+        "calc": "",
+        "uptime": ""
+    },
+    "reboot":{
+        "description": "",
+        "reboot": "",
+        "wrong_pass": ""
+    },
+    "reload":{
+        "description": "",
+        "not_found": "",
+        "found": "",
+        "error":""
+    },
+    "rss_reload":{
+        "description": ""
+    },
+    "server_info":{
+        "description": "",
+        "setTitle": "",
+        "aF1_1": "",
+        "aF1_2": "",
+        "aF1_3": "",
+        "aF1_4": "",
+        "aF1_5": "",
+        "aF2": "",
+        "aF22": "",
+        "aF3": "",
+        "aF33_1": "",
+        "aF33_2": "",
+        "aF4": "",
+        "aF44_1": "",
+        "aF44_2": "",
+        "aF44_3": "",
+        "aF44_4": "",
+        "aF44_5": ""
+    },
+    "stop":{
+        "description": "",
+        "end_message": ""
+    },
+    "t_c":{
+        "description": "",
+        "setDescription": "",
+        "setTitle": "",
+        "last_upd": ""
+    },
+    "u_l":{
+        "description": "",
+        "setDescription": "",
+        "setTitle": "",
+        "last_upd": ""
+    },
+    "user_info":{
+        "description": "",
+        "setTitle": "",
+        "tagged_user": "",
+        "username": "",
+        "D_tag": "",
+        "user_id": "",
+        "user_cre_at": "",
+        "are_i_bot": "",
+        "last_message": "",
+        "last_message_id": ""
+    },
+    "version":{
+        "description": "",
+        "setTitle": "",
+        "setDescription": "",
+        "f_idea": "",
+        "to_fix": "",
+        "bugs": "",
+        "lang": "",
+        "info": "",
+        "event": "",
+        "command": "",
+        "last_upd": ""
+    },
+
+
+    "Events": "all the events here:",
+
+    "guildMemberAdd":{
+        "welcome": ""
+    },
+    "guildMemberRemove":{
+        "goodbye": ""
+    },
+    "ready":{
+        "login": "",
+        "bot_done": "",
+        "last_edit": "",
+        "start": "",
+        "set_activity": "",
+        "start_lang": "",
+        "prefix": ""
+    }
+}
