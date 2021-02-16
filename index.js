@@ -30,17 +30,19 @@ fs.readdir("./events/", (err, files) => {
 
 //Command handler
 (async function registerCommands(dir = 'commands') {
+    //read directory
     let files = await fsp.readdir(path.join(__dirname, dir));
     console.log(files)
-
+    //loop through each file
     for(let file of files) {
-        let stat = await fs.lstat(path.join(__dirname, dir, file));
+        let stat = await fsp.lstat(path.join(__dirname, dir, file));
         if(stat.isDirectory())
             registerCommands(path.join(dir, file));
         else{
             if(file.endsWith(".js")){
-                
+
             }
         }
+        //console.log(stat)
     }
 })()
