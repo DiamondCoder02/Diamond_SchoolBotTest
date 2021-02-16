@@ -29,3 +29,4 @@ fs.readdir("./events/", (err, files) => {
 });
 
 //Command handler
+const commandFiles = fs.readdirSync('./commands')
