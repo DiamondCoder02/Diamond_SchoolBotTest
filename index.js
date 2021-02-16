@@ -2,6 +2,7 @@
 /*** Discord, fs load ***/
 const Discord = require('discord.js'), client = new Discord.Client(), cooldowns = new Discord.Collection(), fs = require('fs'), fsp = require('fs').promises, path = require('path')
 client.commands = new Discord.Collection();
+client.commands= new Map();
 /*** config and language load ***/
 let config = require('./config.json');
 const lang = require('./languages/' + config.language + '.json');
@@ -28,11 +29,17 @@ fs.readdir("./events/", (err, files) => {
     });
 });
 
+client.on('message', async function(message){
+    if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+    const cmdArgs = message.content.slice(config.prefix.length).trim().split(/ +/);
+    let cmdName = cmdArgs.shift().toLowerCase();
+    console.log(cmdName, cmdArgs)
+});
+
 //Command handler
 (async function registerCommands(dir = 'commands') {
     //read directory
     let files = await fsp.readdir(path.join(__dirname, dir));
-    console.log(files)
     //loop through each file
     for(let file of files) {
         let stat = await fsp.lstat(path.join(__dirname, dir, file));
@@ -40,9 +47,12 @@ fs.readdir("./events/", (err, files) => {
             registerCommands(path.join(dir, file));
         else{
             if(file.endsWith(".js")){
-
+                let cmdName = file.substring(0, file.indexOf(".js"));
+                let cmdModule = require(path.join(__dirname, dir, file));
+                client.commands.set(cmdName, cmdModule);
+                //console.log(client.commands)
             }
         }
-        //console.log(stat)
     }
 })()
+
