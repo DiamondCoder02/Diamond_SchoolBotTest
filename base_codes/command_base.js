@@ -50,7 +50,7 @@ try{
 // get role by ID
 let myRole = message.guild.roles.cache.get("694602957672415362");
 // get role by name
-let myRole = message.guild.roles.cache.find(role => role.name === "Moderators");
+let myRole2 = message.guild.roles.cache.find(role2 => role2.name === "Moderators");
 
 
 // Index.js >>> try{}
