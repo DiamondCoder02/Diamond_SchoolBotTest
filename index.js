@@ -1,6 +1,6 @@
 //const parser = require('rss-parser')
 /*** Discord, fs load ***/
-const Discord = require('discord.js'), client = new Discord.Client(), cooldowns = new Discord.Collection(), fs = require('fs')
+const Discord = require('discord.js'), client = new Discord.Client(), cooldowns = new Discord.Collection(), fs = require('fs'), path = require('path')
 client.commands = new Discord.Collection();
 /*** config and language load ***/
 let config = require('./config.json');
@@ -29,4 +29,8 @@ fs.readdir("./events/", (err, files) => {
 });
 
 //Command handler
-const commandFiles = fs.readdirSync('./commands')
+(async function registerCommands(dir = 'commands') {
+    let files = await fs.readdir(path.join(__dirname, dir));
+    console.log(files)
+
+})()
