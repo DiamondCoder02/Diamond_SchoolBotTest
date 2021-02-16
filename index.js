@@ -34,6 +34,12 @@ client.on('message', async function(message){
     const cmdArgs = message.content.slice(config.prefix.length).trim().split(/ +/);
     let cmdName = cmdArgs.shift().toLowerCase();
     console.log(cmdName, cmdArgs)
+
+    if(client.commands.get(cmdName)) {
+        console.log("YES")
+    }else{
+        console.log("NO")
+    }
 });
 
 //Command handler
