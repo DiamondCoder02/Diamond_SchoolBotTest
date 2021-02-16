@@ -13,4 +13,19 @@ console.log(client);
 //client.on("debug", (e) => console.info(e))
 client.login(config.token);
 
+//Event reader
+fs.readdir("./events/", (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+      if (!file.endsWith(".js")) return;
+      const event = require(`./events/${file}`);
+      // Get just the event name from the file name
+      let eventName = file.split(".")[0];
+      // super-secret recipe to call events with all their proper arguments *after* the `client` var.
+      // this means each event will be called with the client argument
+      client.on(eventName, event.bind(null, system));
+      delete require.cache[require.resolve(`./events/${file}`)];
+    });
+});
+
 //Command handler
