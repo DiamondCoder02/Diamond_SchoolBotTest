@@ -40,6 +40,9 @@ client.on('message', async function(message){
     }else{
         console.log("NO")
     }
+
+    const command = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName))
+    command.execute(message, system, cmdArgs)
 });
 
 //Command handler
