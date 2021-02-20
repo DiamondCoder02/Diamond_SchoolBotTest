@@ -3,6 +3,7 @@
 const Discord = require('discord.js'), client = new Discord.Client(), cooldowns = new Discord.Collection(), fs = require('fs'), fsp = require('fs').promises, path = require('path')
 client.commands = new Discord.Collection();
 client.commands= new Map();
+const { measureMemory } = require('vm');
 /*** config and language load ***/
 let config = require('./config.json');
 const lang = require('./languages/' + config.language + '.json');
@@ -34,15 +35,15 @@ client.on('message', async function(message){
     const cmdArgs = message.content.slice(config.prefix.length).trim().split(/ +/);
     let cmdName = cmdArgs.shift().toLowerCase();
     console.log(cmdName, cmdArgs)
-
     if(client.commands.get(cmdName)) {
-        console.log("YES")
+        const command = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName))
+        command.execute(message, system, cmdArgs)
+        //client.commands.get(cmdName).run(message, system, cmdArgs)
     }else{
         console.log("NO")
     }
 
-    const command = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName))
-    command.execute(message, system, cmdArgs)
+    
 });
 
 //Command handler

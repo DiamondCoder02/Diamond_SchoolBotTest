@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'ping',
+    aliases: ['penis'],
     execute(message, system, cmdArgs) {
         let date = system.lang.ping.date.split('-')
 		let totalSeconds = (system.client.uptime / 1000);

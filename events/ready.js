@@ -1,6 +1,6 @@
 module.exports = (system) => {
     console.log('Ready!');
-    system.client.user.setActivity("(^///^) 4th twy vewsion UwU")
+    system.client.user.setActivity("(^///^) Wreck me OwO")
         /*
     "\n\t" + system.lang.ready.login + system.client.user.tag
     + "\n\n\t" + system.lang.ready.bot_done + system.config.botdone
