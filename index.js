@@ -3,6 +3,7 @@
 const Discord = require('discord.js'), client = new Discord.Client(), cooldowns = new Discord.Collection(), fs = require('fs'), fsp = require('fs').promises, path = require('path')
 client.commands = new Discord.Collection();
 client.commands= new Map();
+const { error } = require('console');
 const { measureMemory } = require('vm');
 /*** config and language load ***/
 let config = require('./config.json');
@@ -30,22 +31,6 @@ fs.readdir("./events/", (err, files) => {
     });
 });
 
-client.on('message', async function(message){
-    if (!message.content.startsWith(config.prefix) || message.author.bot) return;
-    const cmdArgs = message.content.slice(config.prefix.length).trim().split(/ +/);
-    let cmdName = cmdArgs.shift().toLowerCase();
-    console.log(cmdName, cmdArgs)
-    if(client.commands.get(cmdName)) {
-        const command = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName))
-        command.execute(message, system, cmdArgs)
-        //client.commands.get(cmdName).run(message, system, cmdArgs)
-    }else{
-        console.log("NO")
-    }
-
-    
-});
-
 //Command handler
 (async function registerCommands(dir = 'commands') {
     //read directory
@@ -66,3 +51,15 @@ client.on('message', async function(message){
     }
 })()
 
+client.on('message', async function(message){
+    if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+    const cmdArgs = message.content.slice(config.prefix.length).trim().split(/ +/);
+    let cmdName = cmdArgs.shift().toLowerCase();
+    console.log(cmdName, cmdArgs)
+    if(client.commands.get(cmdName)) {
+        const command = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName))
+        command.execute(message, system, cmdArgs)
+    }else{
+        message.reply("Nibba what? \nThat is not a real command, you dipshit.")
+    }
+});
