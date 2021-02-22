@@ -55,11 +55,12 @@ client.on('message', async function(message){
     if (!message.content.startsWith(config.prefix) || message.author.bot) return;
     const cmdArgs = message.content.slice(config.prefix.length).trim().split(/ +/);
     let cmdName = cmdArgs.shift().toLowerCase();
+    
     console.log(cmdName, cmdArgs)
     if(client.commands.get(cmdName)) {
-        const command = client.commands.get(cmdName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName))
+        const command = client.commands.get(cmdName)
         command.execute(message, system, cmdArgs)
     }else{
-        message.reply("Nibba what? \nThat is not a real command, you dipshit.")
+        message.reply("Sorry, what? \nThat is not a real command.")
     }
 });
