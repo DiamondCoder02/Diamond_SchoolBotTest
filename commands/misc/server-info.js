@@ -5,7 +5,7 @@ module.exports = {
     guildOnly: true,
     execute(message, system, args) {
             const si_embed = new system.Discord.MessageEmbed()
-        //.setColor(system.config.embed_colors.other)
+        .setColor(system.config.embed_colors.other)
         .setTitle("test")//system.lang.server_info.setTitle)
         .setThumbnail(`https://e7.pngegg.com/pngimages/574/586/png-clipart-discord-computer-icons-logo-computer-software-others-miscellaneous-blue.png`)
         /*.addFields(

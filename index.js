@@ -55,11 +55,23 @@ client.on('message', async function(message){
     if (!message.content.startsWith(config.prefix) || message.author.bot) return;
     const cmdArgs = message.content.slice(config.prefix.length).trim().split(/ +/);
     let cmdName = cmdArgs.shift().toLowerCase();
-    
+    const command = client.commands.get(cmdName)
+
     console.log(cmdName, cmdArgs)
+
+    if (command.args && !cmdArgs.length) {
+		let reply = "`${message.author}, ${lang.index.no_argument}`";
+		if (command.usage) {
+			reply += "`\n${lang.index.proper_argument}" + `\`${config.prefix}${command.name} ${command.usage}\``;
+        }
+            const no_args_embed = new Discord.MessageEmbed()
+        .setColor(system.config.embed_colors.error)
+        .addField("(* ￣︿￣))", reply)
+		return message.channel.send(no_args_embed);
+	}
     if(client.commands.get(cmdName)) {
-        const command = client.commands.get(cmdName)
         command.execute(message, system, cmdArgs)
+        console.log(cmdName + " command executed!")
     }else{
         message.reply("Sorry, what? \nThat is not a real command.")
     }

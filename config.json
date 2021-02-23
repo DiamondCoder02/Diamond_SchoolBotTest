@@ -1,5 +1,13 @@
 {
-    "token": "",
+    "token": "token",
     "prefix": "+",
-    "language": "english"
+    "language": "english",
+
+    "embed_colors":{
+        "important": "#ff0000",
+        "info": "#fff000",
+        "other": "#00FF00",
+        "blue": "#00ffff",
+        "error": "#990000"
+    }
 }
