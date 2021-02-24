@@ -56,19 +56,54 @@ client.on('message', async function(message){
     const cmdArgs = message.content.slice(config.prefix.length).trim().split(/ +/);
     let cmdName = cmdArgs.shift().toLowerCase();
     const command = client.commands.get(cmdName)
-
     console.log(cmdName, cmdArgs)
-
+    //args 
     if (command.args && !cmdArgs.length) {
-		let reply = "`${message.author}, ${lang.index.no_argument}`";
+		let reply = `${message.author}` + ", No argument found";
 		if (command.usage) {
-			reply += "`\n${lang.index.proper_argument}" + `\`${config.prefix}${command.name} ${command.usage}\``;
+			reply += "\nThe correct argument is:" + `\`${config.prefix}${cmdName} ${command.usage}\``;
         }
-            const no_args_embed = new Discord.MessageEmbed()
+        const no_args_embed = new Discord.MessageEmbed()
         .setColor(system.config.embed_colors.error)
         .addField("(* ￣︿￣))", reply)
 		return message.channel.send(no_args_embed);
 	}
+    //server only check
+    if (command.guildOnly && message.channel.type === 'dm') {
+        const guildOnly_embed = new Discord.MessageEmbed()
+    .setColor(system.config.embed_colors.error)
+    .addField("(* ￣︿￣)) Can not execute in DM")
+    return message.reply(guildOnly_embed);
+    }
+    //guild rank role
+    if (message.guild = (message.channel.permissionsFor(message.member).has(command.permissions))) {
+        console.log("Role check success")
+    } else {
+        const no_role_embed = new Discord.MessageEmbed()
+        .setColor(system.config.embed_colors.important)
+        .addField("(* ￣︿￣)), wrong role permission")
+        return message.reply(no_role_embed)
+    }
+    //Cooldown
+    if (!cooldowns.has(cmdName)) {
+        cooldowns.set(cmdName, new Discord.Collection());
+    }
+    const now = Date.now();
+    const timestamps = cooldowns.get(cmdName);
+    const cooldownAmount = (command.cooldown || 1) * 1000;
+    if (timestamps.has(message.author.id)) {
+        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+        if (now < expirationTime) {
+            const timeLeft = (expirationTime - now) / 1000;
+            const not_done_cooldown_embed = new Discord.MessageEmbed()
+        .setColor(system.config.embed_colors.error)
+        .addField(`${cmdName}` + ", Time left: " + `${timeLeft.toFixed(1)}`)
+            return message.reply(not_done_cooldown_embed);
+        }
+    }
+    timestamps.set(message.author.id, now);
+    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+    //command execution
     if(client.commands.get(cmdName)) {
         command.execute(message, system, cmdArgs)
         console.log(cmdName + " command executed!")

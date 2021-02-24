@@ -1,5 +1,10 @@
 module.exports = {
-    aliases: ['penis'],
+    description: 'Ping test',
+    permissions: ["ADMINISTRATOR"],
+    cooldown: 10,
+    guildOnly: true,
+    args: true,
+    usage: '<test>',
     execute(message, system, cmdArgs) {
         let date = system.lang.ping.date.split('-')
 		let totalSeconds = (system.client.uptime / 1000);
