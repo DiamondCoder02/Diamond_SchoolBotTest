@@ -1,10 +1,6 @@
 module.exports = {
     description: 'Ping test',
-    permissions: ["ADMINISTRATOR"],
     cooldown: 10,
-    guildOnly: true,
-    args: true,
-    usage: '<test>',
     execute(message, system, cmdArgs) {
         let date = system.lang.ping.date.split('-')
 		let totalSeconds = (system.client.uptime / 1000);
@@ -16,7 +12,7 @@ module.exports = {
         
         message.channel.send("lang.ping.calc").then((resultMessage) => {
             let ping = resultMessage.createdTimestamp - message.createdTimestamp
-            resultMessage.edit(`Ping: \`` + ping + 'ms\`, Discord API: \`' + system.client.ws.ping + 'ms\`', "system.lang.ping.uptime" + uptime
+            resultMessage.edit(`Ping: \`` + ping + 'ms\`, Discord API: \`' + system.client.ws.ping + 'ms\`' + "\nUptime:" + uptime
             )
         })
     }

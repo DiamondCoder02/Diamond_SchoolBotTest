@@ -71,18 +71,20 @@ client.on('message', async function(message){
     //server only check
     if (command.guildOnly && message.channel.type === 'dm') {
         const guildOnly_embed = new Discord.MessageEmbed()
-    .setColor(system.config.embed_colors.error)
-    .addField("(* ￣︿￣)) Can not execute in DM")
-    return message.reply(guildOnly_embed);
+        .setColor(system.config.embed_colors.error)
+        .addField("(* ￣︿￣)) Can not execute in DM")
+        return message.reply(guildOnly_embed);
     }
     //guild rank role
-    if (message.guild = (message.channel.permissionsFor(message.member).has(command.permissions))) {
-        console.log("Role check success")
-    } else {
-        const no_role_embed = new Discord.MessageEmbed()
-        .setColor(system.config.embed_colors.important)
-        .addField("(* ￣︿￣)), wrong role permission")
-        return message.reply(no_role_embed)
+    if (!message.channel.type == "dm"){
+        if (message.guild = (message.channel.permissionsFor(message.member).has(command.permissions))) {
+            console.log("Role check success")
+        } else {
+            const no_role_embed = new Discord.MessageEmbed()
+            .setColor(system.config.embed_colors.important)
+            .addField("(* ￣︿￣)), wrong role permission")
+            return message.reply(no_role_embed)
+        }
     }
     //Cooldown
     if (!cooldowns.has(cmdName)) {
@@ -97,7 +99,7 @@ client.on('message', async function(message){
             const timeLeft = (expirationTime - now) / 1000;
             const not_done_cooldown_embed = new Discord.MessageEmbed()
         .setColor(system.config.embed_colors.error)
-        .addField(`${cmdName}` + ", Time left: " + `${timeLeft.toFixed(1)}`)
+        .addField(`${cmdName}` + ", Time left in seconds: " + `${timeLeft.toFixed(1)}`)
             return message.reply(not_done_cooldown_embed);
         }
     }
