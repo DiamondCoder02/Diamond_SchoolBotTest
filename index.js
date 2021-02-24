@@ -15,14 +15,12 @@ console.log(client);
 //client.on("warn", (e) => console.warn(e))
 //client.on("debug", (e) => console.info(e))
 client.login(config.token);
-
 //Event reader
 fs.readdir("./events/", (err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
       if (!file.endsWith(".js")) return;
       const event = require(`./events/${file}`);
-      // Get just the event name from the file name
       let eventName = file.split(".")[0];
       // super-secret recipe to call events with all their proper arguments *after* the `client` var.
       // this means each event will be called with the client argument
@@ -30,7 +28,6 @@ fs.readdir("./events/", (err, files) => {
       delete require.cache[require.resolve(`./events/${file}`)];
     });
 });
-
 //Command handler
 (async function registerCommands(dir = 'commands') {
     //read directory
@@ -45,18 +42,21 @@ fs.readdir("./events/", (err, files) => {
                 let cmdName = file.substring(0, file.indexOf(".js"));
                 let cmdModule = require(path.join(__dirname, dir, file));
                 client.commands.set(cmdName, cmdModule);
-                //console.log(client.commands)
             }
         }
     }
 })()
-
+//Message listener and handler
 client.on('message', async function(message){
     if (!message.content.startsWith(config.prefix) || message.author.bot) return;
     const cmdArgs = message.content.slice(config.prefix.length).trim().split(/ +/);
     let cmdName = cmdArgs.shift().toLowerCase();
     const command = client.commands.get(cmdName)
     console.log(cmdName, cmdArgs)
+    //No command found
+    if(!client.commands.get(cmdName)) {
+        return message.reply("Sorry, what? \nThat is not a real command.")
+    }
     //args 
     if (command.args && !cmdArgs.length) {
 		let reply = `${message.author}` + ", No argument found";
@@ -78,7 +78,7 @@ client.on('message', async function(message){
     //guild rank role
     if (!message.channel.type == "dm"){
         if (message.guild = (message.channel.permissionsFor(message.member).has(command.permissions))) {
-            console.log("Role check success")
+            console.log("")
         } else {
             const no_role_embed = new Discord.MessageEmbed()
             .setColor(system.config.embed_colors.important)
@@ -106,10 +106,5 @@ client.on('message', async function(message){
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     //command execution
-    if(client.commands.get(cmdName)) {
-        command.execute(message, system, cmdArgs)
-        console.log(cmdName + " command executed!")
-    }else{
-        message.reply("Sorry, what? \nThat is not a real command.")
-    }
+    command.execute(message, system, cmdArgs)
 });
