@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'server_info',
+    name: 'Server Info',
     aliases: ['si', 'server'],
     cooldown: 30,
     guildOnly: true,

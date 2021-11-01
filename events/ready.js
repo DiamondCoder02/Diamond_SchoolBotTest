@@ -16,8 +16,8 @@ module.exports = (system) => {
     const channel2 = system.client.channels.cache.get(699883301627887657)    
     const channel = system.client.channels.cache.find(c => c.name === "bot-test-and-fun")
     try{
-        channel.send(ready_embed);return
-    }catch{  
         channel2.send(ready_embed);return
+    }catch{  
+        channel.send(ready_embed);return
     }
 }

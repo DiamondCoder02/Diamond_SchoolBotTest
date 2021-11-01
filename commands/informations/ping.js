@@ -1,4 +1,5 @@
 module.exports = {
+    name: "Ping",
     description: 'Ping test',
     cooldown: 10,
     execute(message, system, cmdArgs) {
